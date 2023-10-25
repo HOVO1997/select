@@ -1,0 +1,9 @@
+<form [formGroup]="testGroup">
+  <app-select
+    [(ngModel)]="testModel"
+    [formControl]="testControl"
+    formControlName="testGroupControl"
+    [items]="items"
+    (valueChanged)="valueChanged($event)"
+    (searchValueChanged)="searchValueChanged($event)"/>
+</form>

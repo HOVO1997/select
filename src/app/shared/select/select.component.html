@@ -1,0 +1,33 @@
+<mat-form-field>
+  <mat-label>Select</mat-label>
+  <input
+    *ngIf="items.length > 5"
+    type="text"
+    placeholder="Pick one"
+    matInput
+    [formControl]="searchControl"
+    [matAutocomplete]="auto"
+    [(ngModel)]="autoCompleteSelectedValue">
+  <mat-select *ngIf="items.length <= 5"
+              appSetSelectPanelHeight
+              [visibleItemsCount]="visibleItemsCount"
+              (selectionChange)="selectionChanged($event)"
+              [(ngModel)]="selectedValue">
+    <mat-option *ngFor="let option of items" [value]="option.id">
+      {{option.name}}
+    </mat-option>
+  </mat-select>
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                    (optionSelected)="autocompleteChanged($event)"
+                    [displayWith]="displayFn"
+                    class="customized-autocomplete">
+    <cdk-virtual-scroll-viewport [ngStyle]="{height: heightSetter + 'px'}"
+                                 [itemSize]="visibleItemsCount ? 100 / visibleItemsCount : 25">
+      <mat-option *cdkVirtualFor="let option of filteredOptions" [value]="option">
+        {{option.name}}
+      </mat-option>
+    </cdk-virtual-scroll-viewport>
+  </mat-autocomplete>
+</mat-form-field>
+
+
